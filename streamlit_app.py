@@ -17,17 +17,26 @@ user_api_key = st.sidebar.text_input(
     help="Google AI Studioで取得した無料のAPIキーをご利用いただけます。"
 )
 
-st.sidebar.info(
-    "安全への取り組み\n\n"
-    "入力されたAPIキーは、このブラウザのメモリ内でのみ一時的に使用され、"
-    "サーバーやデータベースには一切保存されません。\n"
-    "---\n\n"
-    "APIキーの取得手順（完全無料）\n\n"
-    "1. [Google AI Studio（外部サイト）](https://aistudio.google.com/) にアクセスします。\n"
-    "2. Googleアカウントでログイン後、画面左上の **「Get API key」** をクリックします。\n"
-    "3. 「Create API key」 をクリックして発行されたキー（`AIzaSy...`）をコピーします。\n"
-    "4. コピーしたキーを上の空欄に貼り付けてください。"
-)
+if not user_api_key:
+    st.sidebar.info(
+        "🔰 **安心・安全への取り組み**\n\n"
+        "入力されたAPIキーは、このブラウザのメモリ内でのみ一時的に使用され、"
+        "**サーバーやデータベースには一切保存されません。**\n"
+        "タブを閉じるとキーは完全に消去されます。\n\n"
+        "---\n\n"
+        "🔑 **APIキーの取得手順（完全無料）**\n\n"
+        "1. **[Google AI Studio（外部サイト）](https://aistudio.google.com/)** にアクセスします。\n"
+        "2. Googleアカウントでログイン後、画面左上の **「Get API key」** をクリックします。\n"
+        "3. **「Create API key」** をクリックして発行されたキー（`AIzaSy...`）をコピーします。\n"
+        "4. コピーしたキーを上の空欄に貼り付けてください。"
+    )
+else:
+    # 🎯 キーが【入力された】ら、手順を消して成功メッセージを表示
+    st.sidebar.success("✅ APIキーが正常にセットされました！")
+    
+    # ログアウト（キーをクリア）
+    if st.sidebar.button("キーを解除（リロード）"):
+        st.rerun()
 
 # APIキーのチェック
 if not user_api_key:
