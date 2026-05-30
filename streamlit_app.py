@@ -9,7 +9,7 @@ st.caption("最新モデル自動取得・保守フリー設計")
 # ==========================================
 # 🔐 サイドバー：APIキーの入力と安全性の説明
 # ==========================================
-st.sidebar.title("🔐 セキュリティと設定")
+st.sidebar.title("セキュリティと設定")
 
 user_api_key = st.sidebar.text_input(
     "あなたの Gemini API Key を入力してください", 
@@ -19,15 +19,15 @@ user_api_key = st.sidebar.text_input(
 
 if not user_api_key:
     st.sidebar.info(
-        "🔰 **安心・安全への取り組み**\n\n"
+        "安心・安全への取り組み\n\n"
         "入力されたAPIキーは、このブラウザのメモリ内でのみ一時的に使用され、"
-        "**サーバーやデータベースには一切保存されません。**\n"
+        "サーバーやデータベースには一切保存されません。\n"
         "タブを閉じるとキーは完全に消去されます。\n\n"
         "---\n\n"
-        "🔑 **APIキーの取得手順（完全無料）**\n\n"
-        "1. **[Google AI Studio（外部サイト）](https://aistudio.google.com/)** にアクセスします。\n"
-        "2. Googleアカウントでログイン後、画面左上の **「Get API key」** をクリックします。\n"
-        "3. **「Create API key」** をクリックして発行されたキー（`AIzaSy...`）をコピーします。\n"
+        "APIキーの取得手順（完全無料）\n\n"
+        "1. [Google AI Studio（外部サイト）](https://aistudio.google.com/) にアクセスします。\n"
+        "2. Googleアカウントでログイン後、画面左上の 「Get API key」 をクリックします。\n"
+        "3. 「Create API key」 をクリックして発行されたキー（`AIzaSy...`）をコピーします。\n"
         "4. コピーしたキーを上の空欄に貼り付けてください。"
     )
 else:
