@@ -28,7 +28,7 @@ StreamlitとGoogle Gemini APIを組み合わせた、業務向けのLLMチャッ
 ### 1. リポジトリのクローン
 
 ```bash
-git clone [https://github.com/あなたのユーザー名/リポジトリ名.git](https://github.com/あなたのユーザー名/リポジトリ名.git)
+git clone https://github.com/あなたのユーザー名/リポジトリ名.git
 cd リポジトリ名
 ```
 
