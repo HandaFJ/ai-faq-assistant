@@ -21,6 +21,12 @@ st.sidebar.info(
     "安全への取り組み\n\n"
     "入力されたAPIキーは、このブラウザのメモリ内でのみ一時的に使用され、"
     "サーバーやデータベースには一切保存されません。"
+    "---\n\n"
+    "APIキーの取得手順（完全無料）\n\n"
+    "1. [Google AI Studio（外部サイト）](https://aistudio.google.com/) にアクセスします。\n"
+    "2. Googleアカウントでログイン後、画面左上の **「Get API key」** をクリックします。\n"
+    "3. 「Create API key」 をクリックして発行されたキー（`AIzaSy...`）をコピーします。\n"
+    "4. コピーしたキーを上の空欄に貼り付けてください。"
 )
 
 # APIキーのチェック
@@ -35,25 +41,28 @@ genai.configure(api_key=user_api_key)
 
 @st.cache_data(show_spinner="最新のAIモデルリストを取得中...")
 def get_available_gemini_models():
-    """GoogleのAPIから現在利用可能なモデルを動的に取得する関数"""
+    """GoogleのAPIから、チャット（GenerateContent）に対応した最新モデルだけを厳選して取得"""
     try:
-        # 利用可能なモデル一覧を取得
         model_list = genai.list_models()
-        
         valid_models = []
+        
         for m in model_list:
+            # 1. そもそもテキスト生成ができるモデルかチェック
             if "generateContent" in m.supported_generation_methods:
                 clean_name = m.name.replace("models/", "")
-                # プレビュー版やテキスト埋め込み用を除外（実用モデルのみに絞り込み）
-                if "flash" in clean_name or "pro" in clean_name:
-                    if "text-" not in clean_name and "embedding" not in clean_name:
+                
+                # 2. 【ここを強化】古いモデルや別目的の特殊なモデル（bison, vision, embeddingなど）を徹底除外
+                # 確実にチャットアプリで動く「gemini」から始まる主力モデルだけに絞り込みます
+                if "gemini" in clean_name:
+                    if not any(x in clean_name for x in ["vision", "embedding", "tuning", "experimental"]):
                         valid_models.append(clean_name)
         
-        # 新しいモデルが下（末尾）に来ることが多いため、リストを反転して最新順にする
-        valid_models.reverse()
+        # 最新順に並び替え
+        valid_models.sort(reverse=True)
         return valid_models
+        
     except Exception as e:
-        # 万が一APIエラーが起きた場合のフォールバック（予備）リスト
+        # 万が一取得エラーが起きた場合は、確実に動く標準モデルを返す
         return ["gemini-2.0-flash", "gemini-2.0-pro", "gemini-1.5-flash"]
 
 # 動的にモデルリストを取得
