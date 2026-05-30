@@ -20,8 +20,8 @@ user_api_key = st.sidebar.text_input(
 st.sidebar.info(
     "安全への取り組み\n\n"
     "入力されたAPIキーは、このブラウザのメモリ内でのみ一時的に使用され、"
-    "サーバーやデータベースには一切保存されません。"
-    "\n---\n\n"
+    "サーバーやデータベースには一切保存されません。\n"
+    "---\n\n"
     "APIキーの取得手順（完全無料）\n\n"
     "1. [Google AI Studio（外部サイト）](https://aistudio.google.com/) にアクセスします。\n"
     "2. Googleアカウントでログイン後、画面左上の **「Get API key」** をクリックします。\n"
